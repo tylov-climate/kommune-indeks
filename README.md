@@ -57,7 +57,8 @@ Per kommune, index over: -> Bergen, Voss, Tromsø
 ### Scripts
 
 Make kommune data, e.g.
-python make_kommune.py --model HADGEM_RCA --write -k Bergen
+
+`python make_kommune.py --model HADGEM_RCA --write -k Bergen`
 
 The folders and scripts:
 
@@ -65,23 +66,22 @@ The folders and scripts:
     - The downloaded and fixed 'scale_factor' attribute in RR and TM
     - from https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge_2100/utgave2015/catalog.html 
     - See: https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
-    Downloaded with `download_norge.sh` script.
+    - Downloaded with `download_norge.sh` script.
 
 - kin_kommuner/
     - The files above split into each kommune bounding box (municipality), and masked the data
     inside the kommune-borders.
     - File: Basisdata_0000_Norge_25833_Kommuner2024_GeoJSON.geojson.gz
     - Download from: https://testnedlasting.geonorge.no/geonorge/Basisdata/Kommuner/GeoJSON/
-    Created with `make_kommune.py` python script.
+    - Created with `make_kommune.py` python script.
 
 - kin_index/
     - Contains climate indices for each kommune using files in the kin_kommune. Note that these
     are based on the time periods of the scenarions (hist=1971-2005 and rcpXX=2006-2100), and
     computes indices for each of the grid points.
-    Created with `make_index.py` python script.
+    - Created with `make_index.py` python script.
 
 - kin_mean/
     - Files simply averaging over all the grid points in the kin_index files to make a single
     value for each year, per climate index.
-    Created with `make_mean.sh` bash script.
-```
+    - Created with `make_mean.sh` bash script.

@@ -1,0 +1,360 @@
+https://snl.no/kommuneinndelingen_i_Norge
+
+Nr.	    Norsk.navn	Folketall	Landareal	Fylke
+
+0301	Oslo	699 827	426	Oslo
+3001	Halden	31 444	595	Viken
+3002	Moss	50 290	128	Viken
+3003	Sarpsborg	58 182	370	Viken
+3004	Fredrikstad	83 892	284	Viken
+3005	Drammen	102 273	305	Viken
+3006	Kongsberg	27 879	754	Viken
+3007	Ringerike	31 011	1 422	Viken
+3011	Hvaler	4 741	90	Viken
+3012	Aremark	1 315	282	Viken
+3013	Marker	3 578	368	Viken
+3014	Indre Østfold	45 608	755	Viken
+3015	Skiptvet	3 846	93	Viken
+3016	Rakkestad	8 312	421	Viken
+3017	Råde	7 633	105	Viken
+3018	Våler	5 913	239	Viken
+3019	Vestby	18 699	134	Viken
+3020	Nordre Follo	61 032	196	Viken
+3021	Ås	20 780	101	Viken
+3022	Frogn	16 084	85	Viken
+3023	Nesodden	19 939	61	Viken
+3024	Bærum	128 982	189	Viken
+3025	Asker	96 088	364	Viken
+3026	Aurskog-Høland	17 754	1 053	Viken
+3027	Rælingen	19 024	56	Viken
+3028	Enebakk	11 249	195	Viken
+3029	Lørenskog	44 693	67	Viken
+3030	Lillestrøm	89 095	410	Viken
+3031	Nittedal	24 947	179	Viken
+3032	Gjerdrum	6 989	82	Viken
+3033	Ullensaker	41 565	250	Viken
+3034	Nes	23 898	612	Viken
+3035	Eidsvoll	26 716	386	Viken
+3036	Nannestad	15 074	324	Viken
+3037	Hurdal	2 905	261	Viken
+3038	Hole	6 859	135	Viken
+3039	Flå	1 057	671	Viken
+3040	Nesbyen	3 273	772	Viken
+3041	Gol	4 667	514	Viken
+3042	Hemsedal	2 611	712	Viken
+3043	Ål	4 650	1 081	Viken
+3044	Hol	4 504	1 653	Viken
+3045	Sigdal	3 492	811	Viken
+3046	Krødsherad	2 189	340	Viken
+3047	Modum	14 273	463	Viken
+3048	Øvre Eiker	20 044	418	Viken
+3049	Lier	27 584	282	Viken
+3050	Flesberg	2 720	538	Viken
+3051	Rollag	1 370	430	Viken
+3052	Nore og Uvdal	2 455	2 266	Viken
+3053	Jevnaker	6 908	194	Viken
+3054	Lunner	9 144	272	Viken
+3401	Kongsvinger	17 949	953	Innlandet
+3403	Hamar	31 999	338	Innlandet
+3405	Lillehammer	28 425	451	Innlandet
+3407	Gjøvik	30 267	629	Innlandet
+3411	Ringsaker	35 073	1 123	Innlandet
+3412	Løten	7 715	362	Innlandet
+3413	Stange	21 156	641	Innlandet
+3414	Nord-Odal	5 016	475	Innlandet
+3415	Sør-Odal	7 978	479	Innlandet
+3416	Eidskog	6 032	603	Innlandet
+3417	Grue	4 548	778	Innlandet
+3418	Åsnes	7 211	1 004	Innlandet
+3419	Våler	3 597	678	Innlandet
+3420	Elverum	21 435	1 209	Innlandet
+3421	Trysil	6 603	2 941	Innlandet
+3422	Åmot	4 195	1 293	Innlandet
+3423	Stor-Elvdal	2 318	2 127	Innlandet
+3424	Rendalen	1 722	3 061	Innlandet
+3425	Engerdal	1 253	1 916	Innlandet
+3426	Tolga	1 551	1 097	Innlandet
+3427	Tynset	5 581	1 823	Innlandet
+3428	Alvdal	2 445	919	Innlandet
+3429	Folldal	1 530	1 260	Innlandet
+3430	Os	1 855	1 007	Innlandet
+3431	Dovre	2 498	1 349	Innlandet
+3432	Lesja	1 986	2 169	Innlandet
+3433	Skjåk	2 151	1 967	Innlandet
+3434	Lom	2 211	1 887	Innlandet
+3435	Vågå	3 591	1 252	Innlandet
+3436	Nord-Fron	5 628	1 092	Innlandet
+3437	Sel	5 531	888	Innlandet
+3438	Sør-Fron	3 064	712	Innlandet
+3439	Ringebu	4 385	1 221	Innlandet
+3440	Øyer	5 082	616	Innlandet
+3441	Gausdal	6 079	1 146	Innlandet
+3442	Østre Toten	14 827	485	Innlandet
+3443	Vestre Toten	13 572	232	Innlandet
+3446	Gran	13 633	657	Innlandet
+3447	Søndre Land	5 535	659	Innlandet
+3448	Nordre Land	6 577	920	Innlandet
+3449	Sør-Aurdal	2 889	1 068	Innlandet
+3450	Etnedal	1 256	443	Innlandet
+3451	Nord-Aurdal	6 354	849	Innlandet
+3452	Vestre Slidre	2 111	415	Innlandet
+3453	Øystre Slidre	3 252	886	Innlandet
+3454	Vang	1 587	1 310	Innlandet
+3801	Horten	27 502	69	Vestfold og Telemark
+3802	Holmestrand	25 681	412	Vestfold og Telemark
+3803	Tønsberg	57 794	326	Vestfold og Telemark
+3804	Sandefjord	64 943	414	Vestfold og Telemark
+3805	Larvik	47 777	771	Vestfold og Telemark
+3806	Porsgrunn	36 624	161	Vestfold og Telemark
+3807	Skien	55 513	719	Vestfold og Telemark
+3808	Notodden	13 029	912	Vestfold og Telemark
+3811	Færder	27 165	100	Vestfold og Telemark
+3812	Siljan	2 349	202	Vestfold og Telemark
+3813	Bamble	14 056	282	Vestfold og Telemark
+3814	Kragerø	10 351	289	Vestfold og Telemark
+3815	Drangedal	4 093	995	Vestfold og Telemark
+3816	Nome	6 494	385	Vestfold og Telemark
+3817	Midt-Telemark	10 539	487	Vestfold og Telemark
+3818	Tinn	5 512	1 848	Vestfold og Telemark
+3819	Hjartdal	1 562	737	Vestfold og Telemark
+3820	Seljord	2 889	669	Vestfold og Telemark
+3821	Kviteseid	2 452	623	Vestfold og Telemark
+3822	Nissedal	1 414	786	Vestfold og Telemark
+3823	Fyresdal	1 198	1 107	Vestfold og Telemark
+3824	Tokke	2 140	905	Vestfold og Telemark
+3825	Vinje	3 755	2 725	Vestfold og Telemark
+4201	Risør	6 735	179	Agder
+4202	Grimstad	24 017	272	Agder
+4203	Arendal	45 509	255	Agder
+4204	Kristiansand	113 737	610	Agder
+4205	Lindesnes	23 147	883	Agder
+4206	Farsund	9 622	252	Agder
+4207	Flekkefjord	9 048	482	Agder
+4211	Gjerstad	2 427	308	Agder
+4212	Vegårshei	2 131	322	Agder
+4213	Tvedestrand	6 115	204	Agder
+4214	Froland	6 098	601	Agder
+4215	Lillesand	11 279	180	Agder
+4216	Birkenes	5 342	596	Agder
+4217	Åmli	1 801	1 058	Agder
+4218	Iveland	1 323	246	Agder
+4219	Evje og Hornnes	3 653	549	Agder
+4220	Bygland	1 134	1 150	Agder
+4221	Valle	1 169	1 130	Agder
+4222	Bykle	935	1 254	Agder
+4223	Vennesla	15 123	362	Agder
+4224	Åseral	912	797	Agder
+4225	Lyngdal	10 480	606	Agder
+4226	Hægebostad	1 704	424	Agder
+4227	Kvinesdal	5 883	887	Agder
+4228	Sirdal	1 810	1 373	Agder
+1101	Eigersund	14 860	387	Rogaland
+1103	Stavanger	144 699	257	Rogaland
+1106	Haugesund	37 444	68	Rogaland
+1108	Sandnes	81 305	944	Rogaland
+1111	Sokndal	3 281	267	Rogaland
+1112	Lund	3 178	354	Rogaland
+1114	Bjerkreim	2 789	577	Rogaland
+1119	Hå	19 296	248	Rogaland
+1120	Klepp	20 163	102	Rogaland
+1121	Time	19 353	171	Rogaland
+1122	Gjesdal	12 131	558	Rogaland
+1124	Sola	27 568	69	Rogaland
+1127	Randaberg	11 454	24	Rogaland
+1130	Strand	13 268	236	Rogaland
+1133	Hjelmeland	2 534	948	Rogaland
+1134	Suldal	3 784	1 583	Rogaland
+1135	Sauda	4 525	508	Rogaland
+1144	Kvitsøy	523	6	Rogaland
+1145	Bokn	855	45	Rogaland
+1146	Tysvær	11 283	400	Rogaland
+1149	Karmøy	42 541	220	Rogaland
+1151	Utsira	188	6	Rogaland
+1160	Vindafjord	8 775	599	Rogaland
+4601	Bergen	286 930	445	Vestland
+4602	Kinn	17 131	763	Vestland
+4611	Etne	4 043	691	Vestland
+4612	Sveio	5 775	224	Vestland
+4613	Bømlo	12 061	235	Vestland
+4614	Stord	18 919	137	Vestland
+4615	Fitjar	3 117	134	Vestland
+4616	Tysnes	2 883	245	Vestland
+4617	Kvinnherad	13 017	1 043	Vestland
+4618	Ullensvang	10 881	2 964	Vestland
+4619	Eidfjord	937	1 389	Vestland
+4620	Ulvik	1 051	663	Vestland
+4621	Voss	15 875	1 958	Vestland
+4622	Kvam	8 497	580	Vestland
+4623	Samnanger	2 501	257	Vestland
+4624	Bjørnafjorden	25 213	487	Vestland
+4625	Austevoll	5 283	114	Vestland
+4626	Øygarden	39 032	300	Vestland
+4627	Askøy	29 816	94	Vestland
+4628	Vaksdal	3 867	682	Vestland
+4629	Modalen	378	379	Vestland
+4630	Osterøy	8 131	244	Vestland
+4631	Alver	29 593	651	Vestland
+4632	Austrheim	2 889	57	Vestland
+4633	Fedje	502	9	Vestland
+4634	Masfjorden	1 629	509	Vestland
+4635	Gulen	2 230	577	Vestland
+4636	Solund	768	219	Vestland
+4637	Hyllestad	1 290	248	Vestland
+4638	Høyanger	3 965	928	Vestland
+4639	Vik	2 560	795	Vestland
+4640	Sogndal	12 097	1 229	Vestland
+4641	Aurland	1 766	1 376	Vestland
+4642	Lærdal	2 117	1 275	Vestland
+4643	Årdal	5 204	930	Vestland
+4644	Luster	5 246	2 597	Vestland
+4645	Askvoll	2 951	313	Vestland
+4646	Fjaler	2 901	390	Vestland
+4647	Sunnfjord	22 116	2 065	Vestland
+4648	Bremanger	3 521	786	Vestland
+4649	Stad	9 527	695	Vestland
+4650	Gloppen	5 875	963	Vestland
+4651	Stryn	7 207	1 326	Vestland
+1505	Kristiansund	24 013	86	Møre og Romsdal
+1506	Molde	32 002	1 435	Møre og Romsdal
+1507	Ålesund	67 114	607	Møre og Romsdal
+1511	Vanylven	3 045	365	Møre og Romsdal
+1514	Sande	2 422	90	Møre og Romsdal
+1515	Herøy	8 765	118	Møre og Romsdal
+1516	Ulstein	8 557	95	Møre og Romsdal
+1517	Hareid	5 126	77	Møre og Romsdal
+1520	Ørsta	10 833	650	Møre og Romsdal
+1525	Stranda	4 467	845	Møre og Romsdal
+1528	Sykkylven	7 558	329	Møre og Romsdal
+1531	Sula	9 547	57	Møre og Romsdal
+1532	Giske	8 597	40	Møre og Romsdal
+1535	Vestnes	6 936	399	Møre og Romsdal
+1539	Rauma	7 019	1 390	Møre og Romsdal
+1547	Aukra	3 518	61	Møre og Romsdal
+1554	Averøy	5 828	173	Møre og Romsdal
+1557	Gjemnes	2 669	371	Møre og Romsdal
+1560	Tingvoll	2 960	322	Møre og Romsdal
+1563	Sunndal	6 932	1 648	Møre og Romsdal
+1566	Surnadal	5 849	1 315	Møre og Romsdal
+1573	Smøla	2 120	261	Møre og Romsdal
+1576	Aure	3 384	622	Møre og Romsdal
+1577	Volda	10 809	834	Møre og Romsdal
+1578	Fjord	2 491	1 144	Møre og Romsdal
+1579	Hustadvika	13 287	508	Møre og Romsdal
+5001	Trondheim	210 496	497	Trøndelag
+5006	Steinkjer	24 004	1 937	Trøndelag
+5007	Namsos	15 001	1 998	Trøndelag
+5014	Frøya	5 265	230	Trøndelag
+5020	Osen	904	370	Trøndelag
+5021	Oppdal	7 066	2 201	Trøndelag
+5022	Rennebu	2 443	924	Trøndelag
+5025	Røros	5 572	1 756	Trøndelag
+5026	Holtålen	1 953	1 170	Trøndelag
+5027	Midtre Gauldal	6 120	1 803	Trøndelag
+5028	Melhus	17 123	653	Trøndelag
+5029	Skaun	8 360	213	Trøndelag
+5031	Malvik	14 425	162	Trøndelag
+5032	Selbu	4 090	1 140	Trøndelag
+5033	Tydal	750	1 217	Trøndelag
+5034	Meråker	2 399	1 188	Trøndelag
+5035	Stjørdal	24 287	913	Trøndelag
+5036	Frosta	2 608	74	Trøndelag
+5037	Levanger	20 171	610	Trøndelag
+5038	Verdal	14 955	1 475	Trøndelag
+5041	Snåsa	2 033	2 146	Trøndelag
+5042	Lierne	1 309	2 630	Trøndelag
+5043	Røyrvik	441	1 330	Trøndelag
+5044	Namsskogan	818	1 353	Trøndelag
+5045	Grong	2 287	1 095	Trøndelag
+5046	Høylandet	1 193	703	Trøndelag
+5047	Overhalla	3 817	689	Trøndelag
+5049	Flatanger	1 101	434	Trøndelag
+5052	Leka	570	108	Trøndelag
+5053	Inderøy	6 794	351	Trøndelag
+5054	Indre Fosen	9 899	1 030	Trøndelag
+5055	Heim	5 884	980	Trøndelag
+5056	Hitra	5 156	715	Trøndelag
+5057	Ørland	10 371	429	Trøndelag
+5058	Åfjord	4 252	1 251	Trøndelag
+5059	Orkland	18 502	1 818	Trøndelag
+5060	Nærøysund	9 732	1 286	Trøndelag
+5061	Rindal	1 980	612	Trøndelag
+1804	Bodø	52 803	1 311	Nordland
+1806	Narvik	21 530	3 195	Nordland
+1811	Bindal	1 406	1 192	Nordland
+1812	Sømna	1 981	192	Nordland
+1813	Brønnøy	7 777	999	Nordland
+1815	Vega	1 175	163	Nordland
+1816	Vevelstad	462	516	Nordland
+1818	Herøy	1 825	64	Nordland
+1820	Alstahaug	7 333	187	Nordland
+1822	Leirfjord	2 257	451	Nordland
+1824	Vefsn	13 233	1 838	Nordland
+1825	Grane	1 461	1 881	Nordland
+1826	Hattfjelldal	1 273	2 411	Nordland
+1827	Dønna	1 369	186	Nordland
+1828	Nesna	1 698	181	Nordland
+1832	Hemnes	4 420	1 430	Nordland
+1833	Rana	26 092	4 203	Nordland
+1834	Lurøy	1 869	258	Nordland
+1835	Træna	450	16	Nordland
+1836	Rødøy	1 153	686	Nordland
+1837	Meløy	6 214	798	Nordland
+1838	Gildeskål	1 894	622	Nordland
+1839	Beiarn	1 012	1 179	Nordland
+1840	Saltdal	4 617	2 084	Nordland
+1841	Fauske	9 603	1 108	Nordland
+1845	Sørfold	1 869	1 472	Nordland
+1848	Steigen	2 591	964	Nordland
+1851	Lødingen	1 976	508	Nordland
+1853	Evenes	1 334	241	Nordland
+1856	Røst	469	10	Nordland
+1857	Værøy	678	19	Nordland
+1859	Flakstad	1 216	169	Nordland
+1860	Vestvågøy	11 566	407	Nordland
+1865	Vågan	9 724	460	Nordland
+1866	Hadsel	8 107	551	Nordland
+1867	Bø	2 565	235	Nordland
+1868	Øksnes	4 458	311	Nordland
+1870	Sortland	10 468	697	Nordland
+1871	Andøy	4 572	617	Nordland
+1874	Moskenes	982	110	Nordland
+1875	Hamarøy	2 708	1 838	Nordland
+5401	Tromsø	77 544	2 472	Troms og Finnmark
+5402	Harstad	24 804	428	Troms og Finnmark
+5403	Alta	21 144	3 653	Troms og Finnmark
+5404	Vardø	1 897	586	Troms og Finnmark
+5405	Vadsø	5 568	1 234	Troms og Finnmark
+5406	Hammerfest	11 274	2 558	Troms og Finnmark
+5411	Kvæfjord	2 789	497	Troms og Finnmark
+5412	Tjeldsund	4 201	775	Troms og Finnmark
+5413	Ibestad	1 289	234	Troms og Finnmark
+5414	Gratangen	1 070	306	Troms og Finnmark
+5415	Lavangen	970	296	Troms og Finnmark
+5416	Bardu	3 993	2 514	Troms og Finnmark
+5417	Salangen	2 087	438	Troms og Finnmark
+5418	Målselv	6 599	3 203	Troms og Finnmark
+5419	Sørreisa	3 414	347	Troms og Finnmark
+5420	Dyrøy	1 068	277	Troms og Finnmark
+5421	Senja	14 738	1 861	Troms og Finnmark
+5422	Balsfjord	5 576	1 440	Troms og Finnmark
+5423	Karlsøy	2 179	1 051	Troms og Finnmark
+5424	Lyngen	2 729	795	Troms og Finnmark
+5425	Storfjord	1 836	1 477	Troms og Finnmark
+5426	Kåfjord	2 012	950	Troms og Finnmark
+5427	Skjervøy	2 804	465	Troms og Finnmark
+5428	Nordreisa	4 746	3 335	Troms og Finnmark
+5429	Kvænangen	1 159	2 008	Troms og Finnmark
+5430	Kautokeino	2 877	8 969	Troms og Finnmark
+5432	Loppa	859	671	Troms og Finnmark
+5433	Hasvik	964	534	Troms og Finnmark
+5434	Måsøy	1 162	1 068	Troms og Finnmark
+5435	Nordkapp	2 947	892	Troms og Finnmark
+5436	Porsanger	3 904	4 639	Troms og Finnmark
+5437	Karasjok	2 584	5 210	Troms og Finnmark
+5438	Lebesby	1 221	3 232	Troms og Finnmark
+5439	Gamvik	1 057	1 355	Troms og Finnmark
+5440	Berlevåg	906	1 083	Troms og Finnmark
+5441	Tana	2 821	3 833	Troms og Finnmark
+5442	Nesseby	854	1 366	Troms og Finnmark
+5443	Båtsfjord	2 165	1 416	Troms og Finnmark
+5444	Sør-Varanger	9 925	3 459	Troms og Finnmark

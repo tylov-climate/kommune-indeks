@@ -56,4 +56,5 @@ if not ok:
     print('2. Change chunk sizes for TN and TX to the same as TM and RR variables. Without it, processing is extremely slow.')
     print()
     print(f'Usage: {os.path.basename(sys.argv[0])} scale|rechunk|all [model [scenario]]')
-    print()
+    print( '       If not model/scenario is specified, all will be processed.')
+    print( '       For performance, it is recommended to run multiple models/scenarios in parallel.')
