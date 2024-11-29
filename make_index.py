@@ -11,6 +11,9 @@ import netCDF4 as nc4
 import uuid
 import shutil
 import argparse
+import gzip
+import json
+import re
 
 # hist => 2005
 # rcp4.5 start 2006
@@ -31,10 +34,27 @@ indexmap = {
     'prx5day': 'RR',
 }
 
+BORDERS_NORGE = 'Basisdata_0000_Norge_25833_Kommuner2024_GeoJSON.geojson'
+
+
+def read_kommune_names(bordersfile):
+    kommune_names = []
+
+    with gzip.open(bordersfile + '.gz', 'r') as f:
+        shp = json.loads(f.read().decode('utf-8'))
+
+    feat = shp['Kommune']['features']
+    for kidx in range(len(feat)):
+        name = feat[kidx]['properties']['kommunenavn']
+        kommune_names.append(name.replace(' ', '-'))
+
+    return kommune_names
+
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    print('make_kindex.py - make climate indexes for KSS municipalities data')
+    print('make_index.py - make climate indices for KSS municipalities (kommune) data')
     print('')
 
     parser.add_argument(
@@ -43,11 +63,11 @@ def parse_args():
     )
     parser.add_argument(
         '-k', '--kommune', default='pilots',
-        help='Select kommune (pilots=default, ...)'
+        help='Select kommune (pilots=default, all, ...)'
     )
     parser.add_argument(
-        '-s', '--scenario', default='all',
-        help='Select scenario (all=default, hist, rcp45, rcp85)'
+        '-s', '--scenario', default='hist_rcp85',
+        help='Select scenario (all, hist_rcp85=default, hist, rcp45, rcp85)'
     )
     parser.add_argument(
         '-m', '--model', default='CNRM_RCA',
@@ -137,9 +157,9 @@ def idx_prp(var, rr_inputs, output, p):
     # precipitation_percent_due_to_R95p days
     if os.path.exists(output):
         os.remove(output)
-    cmd = f"cdo  -ydaymin -mergetime {rr_inputs} {output}.min.nc"
+    cmd = f"cdo  -ydaymin -mergetime [ {rr_inputs} ] {output}.min.nc"
     ret = os.system(cmd)
-    cmd = f"cdo  -ydaymax -mergetime {rr_inputs} {output}.max.nc"
+    cmd = f"cdo  -ydaymax -mergetime [ {rr_inputs} ] {output}.max.nc"
     ret = os.system(cmd)
     for rr in sorted(glob.glob(rr_inputs)):
         cmd = f"cdo -cat -yearsum -expr,days_with_rr_above_{p}th_percentile='({var}>{p})' -ydaypctl,{p} {rr} {output}.min.nc {output}.max.nc {output}"
@@ -158,12 +178,19 @@ def idx_prx5day(var, rr_inputs, output, mm):
 
 
 def make_index(args):
-    if args.kommune == 'pilots':
-        kommuner = ('Bergen', 'Voss', 'Tromsø') # , 'Vestvågøy', 'Ås', 'Nord-Fron', 'Kristiansand', 'Grimstad')
+    if args.kommune == 'all':
+        kommuner = read_kommune_names(BORDERS_NORGE)
+    elif args.kommune == 'pilots':
+        kommuner = ('Bergen', 'Voss', 'Tromsø', 'Vestvågøy', 'Ås', 'Nord-Fron', 'Kristiansand', 'Grimstad')
     else:
-        kommuner = (args.kommune,)
+        kommuner = []
+        for kom in read_kommune_names(BORDERS_NORGE):
+            if re.match('^' + args.kommune + '$', kom):
+                kommuner.append(kom)
 
-    if args.scenario == 'all':
+    if args.scenario == 'hist_rcp85':
+        scenarios = ('hist', 'rcp85')
+    elif args.scenario == 'all':
         scenarios = ('hist', 'rcp45', 'rcp85')
     else:
         scenarios = (args.scenario,)
@@ -174,10 +201,16 @@ def make_index(args):
         indexes = (args.index,)
 
     for kname in kommuner:
+        outkdir = os.path.join(args.outdir, f'{kname}')
+        if os.path.exists(outkdir):
+            print('skipped')
+            continue
         for idx in indexes:
             var = indexmap[idx]
             for scen in scenarios:
                 inputs = os.path.join(args.indir, kname, '%s_%s_%s_%s_daily_%s_v*.nc' % (kname, scen, args.model, var, args.years))
+                
+                print(inputs)
                 outbase = f'{kname}_{idx}_{scen}_{args.model}_{var}.nc'
                 outfile = os.path.join(args.outdir, f'{kname}', outbase)
                 os.makedirs(os.path.dirname(outfile), exist_ok=True)
