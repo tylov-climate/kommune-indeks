@@ -7,7 +7,7 @@
 
 import sys
 import os
-import gzip
+import zipfile
 import numpy as np
 import glob
 import argparse
@@ -105,8 +105,8 @@ def read_shapefile(bordersfile):
 
     #with open(bordersfile) as f:
     #    shp = json.load(f)
-    with gzip.open(bordersfile + '.gz', 'r') as f:
-        shp = json.loads(f.read().decode('utf-8'))
+    with zipfile.ZipFile(bordersfile.replace('.geojson', '.zip'), 'r') as f:
+        shp = json.loads(f.read(bordersfile).decode('utf-8'))
     print('shapefile loaded')
 
     # Old shapefile format:
