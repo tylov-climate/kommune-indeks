@@ -25,10 +25,10 @@
 # The scenarios rcp45 and rcp85 cover the years 2006 to 2100.
 
 # Author: Tyge Løvset Aug, 2023
-# https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge_2100/utgave2015/catalog.html 
+# https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge/utgave2015/catalog.html
 
 
-ROOT=https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
+ROOT=https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge/utgave2015
 TARGET=./kin_norge
 #MODELS=CNRM_CCLM CNRM_RCA EC-EARTH_CCLM EC-EARTH_HIRHAM EC-EARTH_RACMO EC-EARTH_RCA HADGEM_RCA IPSL_RCA MPI_CCLM MPI_RCA
 MODELS=HADGEM_RCA

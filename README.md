@@ -53,7 +53,7 @@ Per kommune, index over: -> Bergen, Voss, Tromsø
 
 ## Skript
 
-Noen av de nedlastede KSS/Klima_i_Norge_2100/utgave2015 dataene har to metadata skaleringsfeil i tillegg
+Noen av de nedlastede KSS/Klima_i_Norge/utgave2015 dataene har to metadata skaleringsfeil i tillegg
 til "chunking" som gjør det ekstremt sakte å hente ut små gridrektangler som kommuner. Man må derfor kjøre
 `fix_data_errors.py` etter nedlasting. En må også laste ned selve kommunegrenser-filen og gzippe den.
 
@@ -67,7 +67,7 @@ Videre kan en spesifisere forskjellige scenarioer og klima-indekser for de ulike
 
     - cdd: TM
     - hdd: TM
-    - dzc: TN # needs TX as well
+    - dzc: TN + TX
     - fd: TN
     - su: TX
     - tas: TM
@@ -84,8 +84,8 @@ Videre kan en spesifisere forskjellige scenarioer og klima-indekser for de ulike
 
 - kin_norge/
     - Nedlastede, rechunket og korrigerte 'scale_factor' attributter i RR og TM
-    - https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge_2100/utgave2015/catalog.html 
-    - https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
+    - https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge/utgave2015/catalog.html 
+    - https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge/utgave2015
     - Nedlastet med `download_norge.sh` skript.
 
 - kin_kommuner/
