@@ -50,11 +50,15 @@ Per kommune, index over: -> Bergen, Voss, Tromsø
 7. Har vi et bedre kommunemasker enn ks.no kart?
     ks.no - lime inn i norges maske.
 
+## Avhengigheter
+
+Python pakker: cartopy, dateutil, pyproj, shapely, gzip, seaborn, netCDF4, xarray
+Netcdf verktøy: CDO, NCO (ncatted)
 
 ## Skript
 
-Noen av de nedlastede KSS/Klima_i_Norge/utgave2015 dataene har to metadata skaleringsfeil i tillegg
-til "chunking" som gjør det ekstremt sakte å hente ut små gridrektangler som kommuner. Man må derfor kjøre
+Noen av de nedlastede KSS/Klima_i_Norge/utgave2015 dataene har to metadata skaleringsfeil i tillegg til
+feil "chunking" som gjør det ekstremt sakte å hente ut små gridrektangler som kommuner. Man må derfor kjøre
 `fix_data_errors.py` etter nedlasting. En må også laste ned selve kommunegrenser-filen og gzippe den.
 
 Lag kommunedata, f.eks:
