@@ -29,11 +29,27 @@
 
 
 ROOT=https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge/utgave2015
-TARGET=./kin_norge
-#MODELS=CNRM_CCLM CNRM_RCA EC-EARTH_CCLM EC-EARTH_HIRHAM EC-EARTH_RACMO EC-EARTH_RCA HADGEM_RCA IPSL_RCA MPI_CCLM MPI_RCA
-MODELS=HADGEM_RCA
+ALL_MODELS="CNRM_CCLM CNRM_RCA EC-EARTH_CCLM EC-EARTH_HIRHAM EC-EARTH_RACMO EC-EARTH_RCA HADGEM_RCA IPSL_RCA MPI_CCLM MPI_RCA"
 
-if [ ! -z "$1" ]; then MODELS="$1"; fi
+if [ -z "$2" ]; then
+    echo "Usage:  $0 TARGETDIR MODELS"
+    echo "Examples:"
+    echo "  $0 kin_norge HADGEM_RCA"
+    echo "  $0 kin_norge all  # $ALL_MODELS" 
+    exit
+fi
+
+TARGET=$1
+shift
+
+if [ "$1" == "all" ]; then
+    MODELS=$ALL_MODELS
+else
+    MODELS=$*
+fi
+
+echo Models: $MODELS
+echo Target: $TARGET
 
 for VAR in RR TX TN TM # SWE SMD
 do
