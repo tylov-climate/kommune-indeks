@@ -112,16 +112,16 @@ def read_shapefile(shapefile):
     #    name = feat[regidx]['properties']['navn'][0]['navn']
     try:
         feat = shp['Kommune']['features']
-        regname = 'kommunenavn'
+        regkey = 'kommunenavn'
     except:
         feat = shp['Fylke']['features']
-        regname = 'fylkesnavn'
+        regkey = 'fylkesnavn'
 
     for regidx in range(len(feat)):
-        name = feat[regidx]['properties'][regname].replace(' ', '-')
+        name = feat[regidx]['properties'][regkey].replace(' ', '-')
         indexmap[name] = regidx
 
-    print(regname, ':', len(indexmap))
+    print(regkey, ':', len(indexmap))
     return shp, indexmap
 
 

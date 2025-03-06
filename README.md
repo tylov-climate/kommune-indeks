@@ -3,7 +3,7 @@ KOS klima kommune index
 
 ## KSS KIN2100 Data
 
-Genererer klimaindekser per kommune, basert på KIN2100 data.
+Genererer klimaindekser per kommune eller fylke, basert på KIN2100 data.
 
 ```
  TX: Daily_maximum_air_temperature (392 GB)
@@ -59,7 +59,7 @@ Netcdf verktøy: CDO, NCO (ncatted)
 
 Noen av de nedlastede KSS/Klima_i_Norge/utgave2015 dataene har to metadata skaleringsfeil i tillegg til
 feil "chunking" som gjør det ekstremt sakte å hente ut små gridrektangler som kommuner. Man må derfor kjøre
-`fix_data_errors.py` etter nedlasting. En må også laste ned selve kommunegrenser-filen og gzippe den.
+`fix_data_errors.py` etter nedlasting. En må også laste ned selve kommunegrenser shapefilen (.geojson i zip-fil)
 
 Lag kommunedata, f.eks:
 
@@ -96,8 +96,8 @@ Videre kan en spesifisere forskjellige scenarioer og klima-indekser for de ulike
 - kin_kommuner/
 - kin_fylke/
     - Filene over er organisert i "bounding box" per kommune/fylke og maskerer data utenfor grensen.
-    - Bruker: Basisdata_0000_Norge_25833_Kommuner_GeoJSON.geojson.gz
-    - Eller: Basisdata_0000_Norge_25833_Fylker_GeoJSON.geojson.gz
+    - Bruker: Basisdata_0000_Norge_25833_Kommuner_GeoJSON.zip # .geojson
+    - Eller: Basisdata_0000_Norge_25833_Fylker_GeoJSON.zip # .geojson
     - Nedlast fra: https://testnedlasting.geonorge.no/geonorge/Basisdata/Kommuner/GeoJSON/
     - Generert med `make_region.py` python skript.
 

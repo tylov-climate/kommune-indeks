@@ -11,7 +11,7 @@ import netCDF4 as nc4
 import uuid
 import shutil
 import argparse
-import gzip
+import zipfile
 import json
 import re
 
@@ -34,27 +34,36 @@ indexmap = {
     'prx5day': 'RR',
 }
 
-BORDERS_NORGE = 'Basisdata_0000_Norge_25833_Kommuner2024_GeoJSON.geojson'
+NORGE_KOMMUNER_SHP = 'Basisdata_0000_Norge_25833_Kommuner_GeoJSON.geojson'
+NORGE_FYLKER_SHP = 'Basisdata_0000_Norge_25833_Fylker_GeoJSON.geojson'
 
 
-def read_kommune_names(bordersfile):
-    kommune_names = []
+def read_region_names(shapefile):
+    region_names = []
 
-    with gzip.open(bordersfile + '.gz', 'r') as f:
-        shp = json.loads(f.read().decode('utf-8'))
+    #with open(shapefile) as f:
+    #    shp = json.load(f)
+    with zipfile.ZipFile(shapefile.replace('.geojson', '.zip'), 'r') as f:
+        shp = json.loads(f.read(shapefile).decode('utf-8'))
 
-    feat = shp['Kommune']['features']
-    for kidx in range(len(feat)):
-        name = feat[kidx]['properties']['kommunenavn']
-        kommune_names.append(name.replace(' ', '-'))
+    try:
+        feat = shp['Kommune']['features']
+        regkey = 'kommunenavn'
+    except:
+        feat = shp['Fylke']['features']
+        regkey = 'fylkesnavn'
 
-    return kommune_names
+    for regidx in range(len(feat)):
+        name = feat[regidx]['properties'][regkey]
+        region_names.append(name.replace(' ', '-'))
+
+    return region_names
 
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    print('make_index.py - make climate indices for KSS municipalities (kommune) data')
+    print('make_index.py - make climate indices for municipalities / counties from KSS KIN2100 data')
     print('')
 
     parser.add_argument(
@@ -62,8 +71,12 @@ def parse_args():
         help='Climate index (all, ' + ', '.join([k for k in indexmap.keys()]) + ')'
     )
     parser.add_argument(
-        '-k', '--kommune', default='pilots',
-        help='Select kommune (pilots=default, all, ...)'
+        '-k', '--kommune', default=None,
+        help='Select kommune (None=default, all, ...)'
+    )
+    parser.add_argument(
+        '-f', '--fylke', default=None,
+        help='Select fylke (None=default, all, ...)'
     )
     parser.add_argument(
         '-s', '--scenario', default='hist_rcp85',
@@ -176,17 +189,33 @@ def idx_prx5day(var, rr_inputs, output, mm):
         os.system(f"cdo -cat -eca_rx5day {rr} {output}")
 
 
+PILOTS = ('Bergen', 'Voss', 'Tromsø', 'Vestvågøy', 'Ås', 'Nord-Fron', 'Kristiansand', 'Grimstad')
+
 
 def make_index(args):
-    if args.kommune == 'all':
-        kommuner = read_kommune_names(BORDERS_NORGE)
-    elif args.kommune == 'pilots':
-        kommuner = ('Bergen', 'Voss', 'Tromsø', 'Vestvågøy', 'Ås', 'Nord-Fron', 'Kristiansand', 'Grimstad')
+    if args.kommune:
+        shapefile = NORGE_KOMMUNER_SHP
+        if args.outdir is None: 
+            args.outdir = 'kin_kommune'
     else:
-        kommuner = []
-        for kom in read_kommune_names(BORDERS_NORGE):
-            if re.match('^' + args.kommune + '$', kom):
-                kommuner.append(kom)
+        shapefile = NORGE_FYLKER_SHP
+        if args.outdir is None: 
+            args.outdir = 'kin_fylker'
+
+    if args.kommune is None and args.fylke is None:
+        print("Error: No kommune or fylke given, --help for usage")
+        exit()
+    elif args.kommune == 'all' or args.fylke == 'all':
+        regions = read_region_names(shapefile)
+    elif args.kommune == 'pilots':
+        regions = PILOTS
+    elif args.fylke:
+        regions = (args.fylke,)
+    else:
+        regions = []
+        for reg in read_region_names(shapefile):
+            if re.match('^' + args.kommune + '$', reg):
+                regions.append(reg)
 
     if args.scenario == 'hist_rcp85':
         scenarios = ('hist', 'rcp85')
@@ -200,19 +229,20 @@ def make_index(args):
     else:
         indexes = (args.index,)
 
-    for kname in kommuner:
-        outkdir = os.path.join(args.outdir, f'{kname}')
+
+    for regname in regions:
+        outkdir = os.path.join(args.outdir, f'{regname}')
         if os.path.exists(outkdir):
             print('skipped')
             continue
         for idx in indexes:
             var = indexmap[idx]
             for scen in scenarios:
-                inputs = os.path.join(args.indir, kname, '%s_%s_%s_%s_daily_%s_v*.nc' % (kname, scen, args.model, var, args.years))
+                inputs = os.path.join(args.indir, regname, '%s_%s_%s_%s_daily_%s_v*.nc' % (regname, scen, args.model, var, args.years))
                 
                 print(inputs)
-                outbase = f'{kname}_{idx}_{scen}_{args.model}_{var}.nc'
-                outfile = os.path.join(args.outdir, f'{kname}', outbase)
+                outbase = f'{regname}_{idx}_{scen}_{args.model}_{var}.nc'
+                outfile = os.path.join(args.outdir, f'{regname}', outbase)
                 os.makedirs(os.path.dirname(outfile), exist_ok=True)
 
                 if idx == 'cdd':
