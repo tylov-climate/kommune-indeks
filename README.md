@@ -1,12 +1,9 @@
-# kommune-indeks
-
 KOS klima kommune index
 =======================
 
 ## KSS KIN2100 Data
 
-https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge_2100/utgave2015/catalog.html 
-https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
+Genererer klimaindekser per kommune, basert på KIN2100 data.
 
 ```
  TX: Daily_maximum_air_temperature (392 GB)
