@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-@author: mpo100 (original, Sep 23 15:41:43 2021 for futureclimate.met.no/dse45)
-@author: tylo: Complete rewrite Oct/Nov 2023 for KSS Norway dataset
+@author: tylo, 2023, 2024, 2025 for KSS Norway KIN2100 dataset
 """
 
 import sys
@@ -24,15 +23,9 @@ from shapely.geometry import Point
 from shapely.geometry import Polygon
 
 
-# Gamle kommune-grense filer
-#BORDERS_DIR = '/Users/mapo/Library/CloudStorage/OneDrive-NORCE/Python'
-#BORDERS_NORGE = BORDERS_DIR + '/Basisdata_0000_Norge_25833_Kommuner_GeoJSON.geojson'
-
 # New 2024 kommune-grense files. Has different structure than the previous.
-BORDERS_NORGE = 'Basisdata_0000_Norge_25833_Kommuner2024_GeoJSON.geojson'
-#BORDERS_NORGE = 'Basisdata_46_Vestland_25833_Kommuner2024_GeoJSON.geojson'
-#DATA_ROOT = '/nird/projects/NS9001K/tylo/KIN2100/kin_norge'
-DATA_ROOT = './kin_norge'
+NORGE_KOMMUNER_SHP = 'Basisdata_0000_Norge_25833_Kommuner_GeoJSON.geojson'
+NORGE_FYLKER_SHP = 'Basisdata_0000_Norge_25833_Fylker_GeoJSON.geojson'
 
 varmap = {
     'RR': 'precipitation',
@@ -57,12 +50,16 @@ pilotlist = (
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    print('kommunegrense_masking.py - crop and mask Norway KSS climate data into kommune')
+    print('Crop and mask Norway KSS climate data into municipality or county')
     print('')
 
     parser.add_argument(
-        '-k', '--kommune', required=True,
+        '-k', '--kommune', default=None,
         help='Select kommune (all, pilots, ...)'
+    )
+    parser.add_argument(
+        '-f', '--fylke', default=None,
+        help='Select fylke (all, ...)'
     )
     parser.add_argument(
         '-w', '--write', action='store_true',
@@ -85,7 +82,7 @@ def parse_args():
         help='Input file directory (kin_norge=default)'
     )
     parser.add_argument(
-        '--outdir', default='kin_kommuner',
+        '--outdir', default=None,
         help='Output file directory (kin_kommuner=default)'
     )
     parser.add_argument(
@@ -100,27 +97,32 @@ def parse_args():
 
 
 
-def read_shapefile(bordersfile):
-    kommune_indices = {}
+def read_shapefile(shapefile):
+    indexmap = {}
 
-    #with open(bordersfile) as f:
+    #with open(shapefile) as f:
     #    shp = json.load(f)
-    with zipfile.ZipFile(bordersfile.replace('.geojson', '.zip'), 'r') as f:
-        shp = json.loads(f.read(bordersfile).decode('utf-8'))
+    with zipfile.ZipFile(shapefile.replace('.geojson', '.zip'), 'r') as f:
+        shp = json.loads(f.read(shapefile).decode('utf-8'))
     print('shapefile loaded')
 
     # Old shapefile format:
     #feat = shp['administrative_enheter.kommune']['features']
-    #for kidx in range(len(feat)):
-    #    name = feat[kidx]['properties']['navn'][0]['navn']
+    #for regidx in range(len(feat)):
+    #    name = feat[regidx]['properties']['navn'][0]['navn']
+    try:
+        feat = shp['Kommune']['features']
+        regname = 'kommunenavn'
+    except:
+        feat = shp['Fylke']['features']
+        regname = 'fylkesnavn'
 
-    feat = shp['Kommune']['features']
-    for kidx in range(len(feat)):
-        name = feat[kidx]['properties']['kommunenavn'].replace(' ', '-')
-        kommune_indices[name] = kidx
+    for regidx in range(len(feat)):
+        name = feat[regidx]['properties'][regname].replace(' ', '-')
+        indexmap[name] = regidx
 
-    print('kommuner:', len(kommune_indices))
-    return shp, kommune_indices
+    print(regname, ':', len(indexmap))
+    return shp, indexmap
 
 
 
@@ -136,27 +138,28 @@ class Grid:
             self.datasetname = datasetname
 
             self.ds = ds
-            self.ext = (ds.attrs['geospatial_lon_min'], ds.attrs['geospatial_lon_max'], 
-                        ds.attrs['geospatial_lat_min'], ds.attrs['geospatial_lat_max'])
+            self.extent = (ds.attrs['geospatial_lon_min'], ds.attrs['geospatial_lon_max'], 
+                           ds.attrs['geospatial_lat_min'], ds.attrs['geospatial_lat_max'])
             self.dim = (ds.sizes['Xc'],  ds.sizes['Yc'])
             self.steps = ds.sizes['time']
             #print('variable:', self.varname, 'shape:', ds[self.varname].shape)
             #self.box_utm = ((ds.Xc.values[0], ds.Yc.values[-1]), (ds.Xc.values[-1], ds.Yc.values[0]))
-            #print('grid ext', self.ext)
+            #print('grid.extent', self.extent)
 
 
 
-class Kommune:
-    def __init__(self, name, shp, kommune_indices, grid):
+class Region:
+    def __init__(self, name, shp, indexmap, grid):
         self.name = name
-        self.ext = None
-        self.kidx = None
+        self.type = 'Kommune' if 'Kommune' in shp else 'Fylke'
+        self.extent = None
+        self.regidx = None
         self.polys = []
         self.bounds = None
         self.mask = None
 
-        if name in kommune_indices:
-            self.kidx = kommune_indices[name]
+        if name in indexmap:
+            self.regidx = indexmap[name]
         else:
             print(f'Feil: {name} er ukjent')
             exit(-1)
@@ -164,29 +167,29 @@ class Kommune:
         print(name)
         #coords = shp['administrative_enheter.kommune']['features'][i]['geometry']['coordinates']
         #myProj = pyproj.Proj(shp['administrative_enheter.kommune']['crs']['properties']['name'])  #"EPSG:25833"
-
-        coords = shp['Kommune']['features'][self.kidx]['geometry']['coordinates'][0]
+        
+        coords = shp[self.type]['features'][self.regidx]['geometry']['coordinates'][0]
         #print(f'adding 1 of {len(coords)} polygon(s)')
         polygon = coords[0]
         x_utm, y_utm = np.array(polygon).transpose()
 
-        myProj = pyproj.Proj(shp['Kommune']['crs']['properties']['name'])  #"EPSG:25833"
+        myProj = pyproj.Proj(shp[self.type]['crs']['properties']['name'])  #"EPSG:25833"
         st_lon, st_lat = myProj(x_utm, y_utm, inverse=True)
         poly = Polygon(zip(st_lon, st_lat))
         self.polys.append( poly )
 
         bx, by = 0.02, 0.01
-        self.ext = (poly.bounds[0]-bx, poly.bounds[2]+bx, poly.bounds[1]-by, poly.bounds[3]+by)
+        self.extent = (poly.bounds[0]-bx, poly.bounds[2]+bx, poly.bounds[1]-by, poly.bounds[3]+by)
 
         poly_utm = Polygon(zip(x_utm, y_utm))
         self.bounds = poly_utm.bounds
-        #print('    ext', self.ext)
+        #print('   .extent', self.extent)
         #print('    bnd', poly_utm.bounds)
 
         # Crop the initial dataset to use Xc and Yc
         cropped = grid.ds.sel(Xc=slice(self.bounds[0], self.bounds[2]),
                               Yc=slice(self.bounds[3], self.bounds[1])) #, drop=True)
-        # Create the kommune-mask
+        # Create the region-mask
         self.mask = mask_area(poly_utm, cropped.Xc, cropped.Yc)
         print('cropped cover', np.count_nonzero(self.mask == True), 'out of', self.mask.shape[0]*self.mask.shape[1])
         print('cropped shape', cropped[grid.varname].shape)
@@ -197,7 +200,7 @@ class Kommune:
         ''' crop the grid '''
         cropped = ds.sel(Xc=slice(self.bounds[0], self.bounds[2]),
                          Yc=slice(self.bounds[3], self.bounds[1])) #, drop=True)
-        # Apply the kommune-mask
+        # Apply the region-mask
         cropped[varname] = cropped[varname].where(self.mask == True)
         return cropped
 
@@ -228,7 +231,7 @@ class Kommune:
         d = ax.pcolormesh(ds.lon.values, ds.lat.values, values,
                           #vmin=minmax[0], vmax=minmax[1],
                           cmap='YlGnBu', transform=ccrs.PlateCarree(), zorder=11)
-        #ax.set_extent(self.ext, crs=ccrs.PlateCarree())
+        #ax.set_extent(self.extent, crs=ccrs.PlateCarree())
         ax.add_geometries(self.polys, crs=ccrs.PlateCarree(), facecolor='b', edgecolor='red', alpha=0.2, zorder=10)
 
         gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, linewidth=.5, color='k', alpha=0.5, linestyle='-')
@@ -261,15 +264,29 @@ def mask_area(poly, Xc, Yc):
 if __name__ == "__main__":
     args = parse_args()
         
-    # read the geojson
-    shp, borders = read_shapefile(BORDERS_NORGE)
-
-    if args.kommune == 'all':
-        kommuner = borders.keys()
-    elif args.kommune == 'pilots':
-        kommuner = pilotlist
+    # read the geojson shape file inside zip file
+    if args.kommune:
+        shapefile = NORGE_KOMMUNER_SHP
+        if args.outdir is None: 
+            args.outdir = 'kin_kommune'
     else:
-        kommuner = (args.kommune,)
+        shapefile = NORGE_FYLKER_SHP
+        if args.outdir is None: 
+            args.outdir = 'kin_fylker'
+        
+    shp, region_indexmap = read_shapefile(shapefile)
+    
+    if args.kommune is None and args.fylke is None:
+        print("Error: No kommune or fylke given, --help for usage")
+        exit()
+    elif args.kommune == 'all' or args.fylke == 'all':
+        regions = region_indexmap.keys()
+    elif args.kommune == 'pilots':
+        regions = pilotlist
+    elif args.kommune:
+        regions = (args.kommune,)
+    else:
+        regions = (args.fylke,)
 
     if args.scenario == 'hist_rcp85':
         scenarios = ('hist', 'rcp85')
@@ -290,31 +307,31 @@ if __name__ == "__main__":
     else:
         variables = (args.variable,)
 
-    kommunemap = {}
+    regionmap = {}
 
     for scenario in scenarios:
         for model in models:
             for var in variables:
-                fmt = f'{DATA_ROOT}/{scenario}/{model}/{var}/{scenario}_{model}_{var}_daily'
+                fmt = f'{args.indir}/{scenario}/{model}/{var}/{scenario}_{model}_{var}_daily'
                 files = []
                 if args.year:
                     files += sorted(glob.glob(fmt + f'_{args.year}_*'))
                 else:
-                    for decade in range(197, 205):
+                    for decade in range(197, 210):
                         files += sorted(glob.glob(fmt + f'_{decade}*'))
-                    files += glob.glob(fmt + '_2050*')
+                    files += glob.glob(fmt + '_2100*')
 
                 for f in files:
                     grid = Grid(f)
-                    for name in kommuner:
-                        if name in kommunemap:
-                            kommune = kommunemap[name]
+                    for name in regions:
+                        if name in regionmap:
+                            region = regionmap[name]
                         else:
-                            kommune = Kommune(name, shp, borders, grid)
-                            kommunemap[name] = kommune
+                            region = Region(name, shp, region_indexmap, grid)
+                            regionmap[name] = region
                         
-                        cropped = kommune.crop(grid.ds, grid.varname)
+                        cropped = region.crop(grid.ds, grid.varname)
                         if args.write:
-                            kommune.save(cropped, grid.varname, f)
+                            region.save(cropped, grid.varname, f)
                         else:
-                            kommune.plot(cropped, grid.varname, os.path.basename(f))
+                            region.plot(cropped, grid.varname, os.path.basename(f))

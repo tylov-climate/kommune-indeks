@@ -63,7 +63,7 @@ feil "chunking" som gjør det ekstremt sakte å hente ut små gridrektangler som
 
 Lag kommunedata, f.eks:
 
-`python make_kommune.py --model HADGEM_RCA --write -k Bergen`
+`python make_region.py --model HADGEM_RCA --write -k Bergen`
 
 CNRM_RCA er brukt som "standard" modell i skriptene, men man kan spesifisere en annen. Kommunedata
 kan genereres for valgte kommuner (vil vise kart som standard hvis ikke --write opsjon er brukt).
@@ -91,12 +91,15 @@ Videre kan en spesifisere forskjellige scenarioer og klima-indekser for de ulike
     - https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge/utgave2015/catalog.html 
     - https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge/utgave2015
     - Nedlastet med `download_norge.sh` skript.
+    - Korrigert med `fix_data_errors.py` python skript.
 
 - kin_kommuner/
-    - Filene over er organisert i "bounding box" per kommune og maskerer data utenfor kommune-grensen.
-    - Fil: Basisdata_0000_Norge_25833_Kommuner2024_GeoJSON.geojson.gz
+- kin_fylke/
+    - Filene over er organisert i "bounding box" per kommune/fylke og maskerer data utenfor grensen.
+    - Bruker: Basisdata_0000_Norge_25833_Kommuner_GeoJSON.geojson.gz
+    - Eller: Basisdata_0000_Norge_25833_Fylker_GeoJSON.geojson.gz
     - Nedlast fra: https://testnedlasting.geonorge.no/geonorge/Basisdata/Kommuner/GeoJSON/
-    - Generert med `make_kommune.py` python skriptet.
+    - Generert med `make_region.py` python skript.
 
 - kin_index/
     - Inneholder klimaindekser for hver kommune, bruker filene i kin_kommune katalogen. Merk at
