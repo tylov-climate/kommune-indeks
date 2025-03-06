@@ -1,9 +1,9 @@
 # kommune-indeks
 
-KOS climate fairness kommune index
-===================================
+KOS klima kommune index
+=======================
 
-### KSS KIN2100 Data
+## KSS KIN2100 Data
 
 https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge_2100/utgave2015/catalog.html 
 https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
@@ -32,11 +32,11 @@ https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
 ```
 
 Scenarios: hist rcp45 rcp85
-- The scenario hist covers the years 1971 to 2005.
-- The scenarios rcp45 and rcp85 cover the years 2006 to 2100.
+- Scenario hist gjelder årene 1971 to 2005.
+- Scenario rcp45 og rcp85 gjelder 2006 to 2100.
 
 
-#### Questions (Norwegain)
+### Spørsmål
 
 Per kommune, index over: -> Bergen, Voss, Tromsø
 
@@ -54,34 +54,55 @@ Per kommune, index over: -> Bergen, Voss, Tromsø
     ks.no - lime inn i norges maske.
 
 
-### Scripts
+## Skript
 
-Make kommune data, e.g.
+Noen av de nedlastede KSS/Klima_i_Norge_2100/utgave2015 dataene har to metadata skaleringsfeil i tillegg
+til "chunking" som gjør det ekstremt sakte å hente ut små gridrektangler som kommuner. Man må derfor kjøre
+`fix_data_errors.py` etter nedlasting. En må også laste ned selve kommunegrenser-filen og gzippe den.
+
+Lag kommunedata, f.eks:
 
 `python make_kommune.py --model HADGEM_RCA --write -k Bergen`
 
-The folders and scripts:
+CNRM_RCA er brukt som "standard" modell i skriptene, men man kan spesifisere en annen. Kommunedata
+kan genereres for valgte kommuner (vil vise kart som standard hvis ikke --write opsjon er brukt).
+Videre kan en spesifisere forskjellige scenarioer og klima-indekser for de ulike kommunene:
+
+    - cdd: TM
+    - hdd: TM
+    - dzc: TN # needs TX as well
+    - fd: TN
+    - su: TX
+    - tas: TM
+    - tasx: TX
+    - tasn: TN
+    - pr: RR
+    - pr1mm: RR
+    - pr20mm: RR
+    - pr95p: RR
+    - prx5day: RR
+
+
+### Kataloger:
 
 - kin_norge/
-    - The downloaded and fixed 'scale_factor' attribute in RR and TM
-    - from https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge_2100/utgave2015/catalog.html 
-    - See: https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
-    - Downloaded with `download_norge.sh` script.
+    - Nedlastede, rechunket og korrigerte 'scale_factor' attributter i RR og TM
+    - https://thredds.met.no/thredds/catalog/KSS/Klima_i_Norge_2100/utgave2015/catalog.html 
+    - https://thredds.met.no/thredds/fileServer/KSS/Klima_i_Norge_2100/utgave2015
+    - Nedlastet med `download_norge.sh` skript.
 
 - kin_kommuner/
-    - The files above split into each kommune bounding box (municipality), and masked the data
-    inside the kommune-borders.
-    - File: Basisdata_0000_Norge_25833_Kommuner2024_GeoJSON.geojson.gz
-    - Download from: https://testnedlasting.geonorge.no/geonorge/Basisdata/Kommuner/GeoJSON/
-    - Created with `make_kommune.py` python script.
+    - Filene over er organisert i "bounding box" per kommune og maskerer data utenfor kommune-grensen.
+    - Fil: Basisdata_0000_Norge_25833_Kommuner2024_GeoJSON.geojson.gz
+    - Nedlast fra: https://testnedlasting.geonorge.no/geonorge/Basisdata/Kommuner/GeoJSON/
+    - Generert med `make_kommune.py` python skriptet.
 
 - kin_index/
-    - Contains climate indices for each kommune using files in the kin_kommune. Note that these
-    are based on the time periods of the scenarions (hist=1971-2005 and rcpXX=2006-2100), and
-    computes indices for each of the grid points.
-    - Created with `make_index.py` python script.
+    - Inneholder klimaindekser for hver kommune, bruker filene i kin_kommune katalogen. Merk at
+    disse er basert på tidsperiodene fra scenarioene (hist=1971-2005, rcpXX=2006-2100), og
+    beregner indekser for hvert gridpunkt.
+    - Generert med `make_index.py` python skript.
 
 - kin_mean/
-    - Files simply averaging over all the grid points in the kin_index files to make a single
-    value for each year, per climate index.
-    - Created with `make_mean.sh` bash script.
+    - Gjennomsnitt av alle gridpunkt i kin_index filene, og lager en enkeltverdi per år, per klimaindeks.
+    - Generert med `make_mean.sh` bash skript.
